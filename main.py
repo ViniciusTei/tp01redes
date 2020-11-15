@@ -1,5 +1,5 @@
-from src.Testes import Testes
-from src.Estacao import Estacao
+from core.Testes import Testes
+from core.Estacao import Estacao
 
 def main():
     N = 20 # numero de estacoes

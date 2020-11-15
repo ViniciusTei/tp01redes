@@ -1,5 +1,5 @@
 import random
-from src.Estacao import Estacao
+from core.Estacao import Estacao
 
 class Testes:    
     def Aloha(maquinas, N):
