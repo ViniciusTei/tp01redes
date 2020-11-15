@@ -6,11 +6,6 @@ class Testes:
         ativo = [] # maquinas que estao tentando enviar uma mensagem 
         canaltempo = 0
 
-        # inicializa lista de maquinas
-        for i in range(N):
-            m = Estacao(i, False, '000000001', 1)
-            maquinas.append(m)
-
         while(True):
             # verifica se eh o primeiro canal de tempo
             if(canaltempo == 0):
@@ -61,11 +56,6 @@ class Testes:
         canaltempo = 0
         p = 0.01
 
-        # inicializa lista de maquinas
-        for i in range(N):
-            m = Estacao(i, False, '000000001', 1)
-            maquinas.append(m)
-
         #comeca a escutar os canais de tmepo
         while(True):
             #primeiro canal de tempo
@@ -73,6 +63,7 @@ class Testes:
                 canaltempo = 1 # nada acontece
             else:
                 for m in maquinas:
+                    print(m.p, canaltempo)
                     if(m.p == canaltempo): #maquina quer transmitir naquele canal
                         esperandoNoCanal.append(m)
                 
@@ -81,7 +72,7 @@ class Testes:
                     probabilidadeDeTransmitir = float(format(probabilidadeDeTransmitir, '.2f')) # formatar o numer para ter duas casas decimais apenas
                     if(probabilidadeDeTransmitir == p):
                         ativo.append(m)
-                    elif(probabilidadeDeTransmitir == (1-p)):
+                    elif(probabilidadeDeTransmitir != p): # Duvida, `probabilidadeDeTransimitir != p` == `1 - p` ?
                         m.p+=1
                 
                 #Verificar as colisose
