@@ -10,8 +10,8 @@ def main():
         m = Estacao(i, False, '000000001', 1)
         maquinas.append(m)
     
-    #Testes.Aloha(maquinas, N)
-    Testes.CSMA1P(maquinas, N)
+    Testes.Aloha(maquinas, N)
+    #Testes.CSMA1P(maquinas, N)
     
         
 if __name__ == "__main__":

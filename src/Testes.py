@@ -4,7 +4,6 @@ from src.Estacao import Estacao
 class Testes:    
     def Aloha(maquinas, N):
         ativo = [] # maquinas que estao tentando enviar uma mensagem 
-        inativo = [] # maquinas que nao estao tentando enviar uma mensagem
         canaltempo = 0
 
         # inicializa lista de maquinas
@@ -23,8 +22,6 @@ class Testes:
                 for m in maquinas:
                     if(m.sending):
                         ativo.append(m)
-                    else:
-                        inativo.append(m)
             else:
                 canaltempo+=1
                 # verifica colisoes
@@ -38,7 +35,6 @@ class Testes:
                         # Caso P for igual ao canal de tempo vai tentar enviar a msg
                         if(m.p != canaltempo):
                             ativo.remove(m)
-                            inativo.append(m)
 
                 elif(len(ativo) == 1):
                     for m in maquinas:
@@ -50,12 +46,9 @@ class Testes:
                     
                     # reset dos ativos
                     ativo = []
-                    inativo = []
                     for m in maquinas:
                         if(m.sending):
                             ativo.append(m)
-                        else:
-                            inativo.append(m)
 
                     # quando a lista de ativos ficar vazia nao existe mais nenhuma maquina tentando envair uma msg
                     if(len(ativo) == 0):
@@ -80,12 +73,12 @@ class Testes:
                 canaltempo = 1 # nada acontece
             else:
                 for m in maquinas:
-                    print(m.p, canaltempo)
                     if(m.p == canaltempo): #maquina quer transmitir naquele canal
                         esperandoNoCanal.append(m)
                 
                 for m in esperandoNoCanal: #verifica probabilidade da maquina transmitir
                     probabilidadeDeTransmitir = (random.random() / 10) # valor entre 0 e 0.1
+                    probabilidadeDeTransmitir = float(format(probabilidadeDeTransmitir, '.2f')) # formatar o numer para ter duas casas decimais apenas
                     if(probabilidadeDeTransmitir == p):
                         ativo.append(m)
                     elif(probabilidadeDeTransmitir == (1-p)):
