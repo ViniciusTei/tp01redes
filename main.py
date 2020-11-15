@@ -1,7 +1,7 @@
-from src.Estacao import Testes
+from src.Testes import Testes
 
 def main():
-    Testes.Aloha()
+    Testes.CSMA1P()
     
         
 if __name__ == "__main__":
