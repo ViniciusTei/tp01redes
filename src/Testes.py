@@ -2,9 +2,7 @@ import random
 from src.Estacao import Estacao
 
 class Testes:    
-    def Aloha():
-        N = 20 # numero de estacoes
-        maquinas = [] # lista de maquinas
+    def Aloha(maquinas, N):
         ativo = [] # maquinas que estao tentando enviar uma mensagem 
         inativo = [] # maquinas que nao estao tentando enviar uma mensagem
         canaltempo = 0
@@ -64,9 +62,7 @@ class Testes:
                         print('\nTempo total: ', canaltempo  * 51.2, 'us')
                         break
 
-    def CSMA1P():
-        N = 20 # numero de estacoes
-        maquinas = [] # lista de maquinas
+    def CSMA1P(maquinas, N):
         ativo = [] # maquinas que estao tentando enviar uma mensagem 
         esperandoNoCanal = [] # maquinas que querem transmitir em um determinado canal de tempo
         canaltempo = 0
@@ -84,6 +80,7 @@ class Testes:
                 canaltempo = 1 # nada acontece
             else:
                 for m in maquinas:
+                    print(m.p, canaltempo)
                     if(m.p == canaltempo): #maquina quer transmitir naquele canal
                         esperandoNoCanal.append(m)
                 
@@ -117,7 +114,7 @@ class Testes:
                         print('\nTempo total: ', canaltempo  * 51.2, 'us')
                         break
 
-            canaltempo+=1
+                canaltempo+=1
                 
                 
                     
