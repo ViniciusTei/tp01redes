@@ -1,4 +1,5 @@
 import random
+import math
 from core.Estacao import Estacao
 
 
@@ -55,51 +56,33 @@ class Testes:
         ativo = []  # maquinas que estao tentando enviar uma mensagem
         esperandoNoCanal = []  # maquinas que querem transmitir em um determinado canal de tempo
         canaltempo = 0
-        p = 0.01
+        p = 1 # probabilidade de 1%
         canalOcupado = True
         # comeca a escutar os canais de tempo
         while(True):
-            # primeiro canal de tempo ocupado
-            # if(canaltempo == 0):
-            #     for m in maquinas:
-            #         esperandoNoCanal.append(m)
-            #     canaltempo = 1  # nada acontece
-            # else:
-            #     # O canal está livre
-            #     canalOcupado = False
-            #     if(canalOcupado == False):
-            #         # As maquinas só transmitirão se pDeTranmitir <= p
-            #         for m in esperandoNoCanal:
-            #             pDeTransmitir = format(random.random(), '.2f')
-            #             print(pDeTransmitir)
-            #             if(pDeTransmitir <= p):
-            #                 print("Print BINGO")
-            #         break
             if(canaltempo == 0):
                 canaltempo = 1
+                for m in maquinas:
+                    m.sending = True #Todas as maquinas querem enviar a partir do segundo canal de tempo
             else:
                 for m in maquinas:
-                    print(m.p, canaltempo)
-                    if(m.p == canaltempo):  # maquina quer transmitir naquele canal
+                    if (m.sending) and (m.p == canaltempo):  # maquina quer transmitir naquele canal
                         esperandoNoCanal.append(m)
 
                 for m in esperandoNoCanal:  # verifica probabilidade da maquina transmitir
-                    probabilidadeDeTransmitir = (
-                        random.random() / 10)  # valor entre 0 e 0.1
-                    # formatar o numero para ter duas casas decimais apenas
-                    probabilidadeDeTransmitir = float(
-                        format(probabilidadeDeTransmitir, '.2f'))
+                    probabilidadeDeTransmitir = math.floor(random.random() * 100)  # valor entre 0 e 100
                     if(probabilidadeDeTransmitir <= p):
                         ativo.append(m)
-                    # Duvida, `probabilidadeDeTransimitir != p` == `1 - p` ?
-                    elif(probabilidadeDeTransmitir != p):
+                    else:
                         m.p += 1
 
                 # Verificar as colisoes
                 if(len(ativo) > 1):
                     # houve colisao tratar erro
                     for m in ativo:
-                        m.p = int((random.random()*10) + canaltempo)
+                        m.p = math.floor((random.random()*100) + canaltempo)
+                    
+                    ativo.clear()
 
                 elif(len(ativo) == 1):
                     # transmitir
@@ -111,6 +94,7 @@ class Testes:
                             print('Maquina: ', m.id)
                             print('Tempo gasto: ', m.tempoGasto * 51.2, 'us')
                             ativo.clear()
+                            break
                         elif(m.sending):
                             flagEnd += 1
 
@@ -119,3 +103,6 @@ class Testes:
                         break
 
                 canaltempo += 1
+
+    def Backoff(maquinas, N):
+        
