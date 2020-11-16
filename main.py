@@ -12,18 +12,6 @@ def main():
     print("------------------------------\n")
     N = int(input())  # numero de estacoes
 
-    # inicializa lista de maquinas
-    for i in range(N):
-        m = Estacao(i, False, '000000001', 1)
-        maquinas.append(m)
-    
-    #Testes.Aloha(maquinas, N)
-    Testes.CSMA1P(maquinas, N)
-    
-        
-if __name__ == "__main__":
-    main()
-
     print("------------------------------\n")
     print("Voce escolheu", N, "estacoes\n")
     print("Escolha um algoritmo:\n")
@@ -33,6 +21,11 @@ if __name__ == "__main__":
     print("------------------------------\n")
     algoritmo = int(input())
 
+    # inicializa lista de maquinas
+    for i in range(N):
+        m = Estacao(i, False, '000000001', 1)
+        maquinas.append(m)
+
     if (algoritmo == 1):
         Testes.Aloha(maquinas, N)
     elif(algoritmo == 2):
@@ -40,6 +33,11 @@ if __name__ == "__main__":
     elif(algoritmo == 3):
         Testes.Backoff(maquinas, N)
 
-
+    
+    
+    #Testes.Aloha(maquinas, N)
+    #Testes.CSMA1P(maquinas, N)
+    
+        
 if __name__ == "__main__":
     main()
