@@ -32,11 +32,6 @@ def main():
         Testes.CSMA1P(maquinas, N)
     elif(algoritmo == 3):
         Testes.Backoff(maquinas, N)
-
-    
-    
-    #Testes.Aloha(maquinas, N)
-    #Testes.CSMA1P(maquinas, N)
     
         
 if __name__ == "__main__":

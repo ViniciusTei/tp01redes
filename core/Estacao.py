@@ -6,3 +6,4 @@ class Estacao:
         self.mesage = mesage
         self.p = p
         self.tempoGasto = 0
+        self.backoff_value = 0

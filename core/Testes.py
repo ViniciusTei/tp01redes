@@ -57,7 +57,6 @@ class Testes:
         esperandoNoCanal = []  # maquinas que querem transmitir em um determinado canal de tempo
         canaltempo = 0
         p = 1 # probabilidade de 1%
-        canalOcupado = True
         # comeca a escutar os canais de tempo
         while(True):
             if(canaltempo == 0):
@@ -105,4 +104,50 @@ class Testes:
                 canaltempo += 1
 
     def Backoff(maquinas, N):
-        
+        ativo = []  # maquinas que estao tentando enviar uma mensagem
+        canaltempo = 0
+        # comeca a escutar os canais de tempo
+        while(True):
+            if(canaltempo == 0):
+                canaltempo = 1
+                for m in maquinas:
+                    m.sending = True #Todas as maquinas querem enviar a partir do segundo canal de tempo
+            else:
+                #canal livre maquinas querem enviar
+                for m in maquinas:
+                    if(m.sending) and (m.p == canaltempo):
+                        ativo.append(m)
+                
+                canaltempo += 1
+                #tratar colisoes
+                if(len(ativo) > 1):
+                    for m in ativo:
+                        m.backoff_value +=1 # aumenta o valor de backoff
+                        if(m.backoff_value < 10): # quando backoff eh menor q 10 usa o valor dele, se nao eh sempre 10
+                            m.p = (random.randrange(0, (2 ** m.backoff_value ))) + canaltempo # escolhe um novo slot entre 0 e (2^c - 1)
+                        else:
+                            m.p = (random.randrange(0, (2 ** 10))) + canaltempo
+                    ativo.clear()
+                
+                elif(len(ativo) == 1): # envia mensagem
+                    for m in ativo:
+                        m.sending = False
+                        m.tempoGasto = canaltempo
+                        print('Maquina: ', m.id)
+                        print('Tempo gasto: ', m.tempoGasto * 51.2, 'us')
+                        break
+                    
+                    ativo.clear()
+                
+                flagEnd = 0
+                coutSending = 0
+                for m in maquinas:
+                    if(m.backoff_value >= 16):
+                        flagEnd = 1
+                    elif(m.sending):
+                        coutSending += 1
+                
+                if(coutSending == 0) or (flagEnd == 1):
+                    print('\nTempo total: ', canaltempo * 51.2, 'us')
+                    break
+                
