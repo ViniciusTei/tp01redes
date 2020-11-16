@@ -5,12 +5,12 @@ from core.Estacao import Estacao
 def main():
 
     maquinas = []  # lista de maquinas
-
+    N = 20
     # menu
-    print("------------------------------\n")
-    print("   Escolha um valor para N:\n")
-    print("------------------------------\n")
-    N = int(input())  # numero de estacoes
+    # print("------------------------------\n")
+    # print("   Escolha um valor para N:\n")
+    # print("------------------------------\n")
+    # N = int(input())  # numero de estacoes
 
     print("------------------------------\n")
     print("Voce escolheu", N, "estacoes\n")
